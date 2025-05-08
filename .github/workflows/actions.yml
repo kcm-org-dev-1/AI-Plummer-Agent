@@ -1,0 +1,31 @@
+name: End to End CI/CD for Book My Show Application
+
+on:
+  push:
+    branches:
+      - "master"
+      - "task/**"
+  pull_request:
+    branches:
+      - "master"
+      - "task/**"
+
+# The error occurs because the `id-token: write` permission is not enabled in the workflow.
+# This permission is required for OIDC-based authentication when using the `Azure/login` action.
+# Generally we face this error when we are using the `Azure/login` action in our workflow for deploying an application in AKS
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+# Build & Push docker image to Docker Hub
+  docker_build-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get Book-My-Show Pipeline logs
+        run: |
+          ls -la
+
