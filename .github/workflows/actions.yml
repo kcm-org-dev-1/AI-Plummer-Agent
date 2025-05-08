@@ -29,4 +29,3 @@ jobs:
         run: |
           ls -la
           python3 get_pipeline_logs.py kcm-org-dev-1 Book-My-Show ${{ secrets.PAT }}
-
