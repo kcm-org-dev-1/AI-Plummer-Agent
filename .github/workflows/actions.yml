@@ -1,4 +1,4 @@
-name: End to End CI/CD for Book My Show Application
+name: Get Book-My-Show Pipeline logs
 
 on:
   push:
@@ -28,4 +28,5 @@ jobs:
       - name: Get Book-My-Show Pipeline logs
         run: |
           ls -la
+          python3 get_pipeline_logs.py
 
