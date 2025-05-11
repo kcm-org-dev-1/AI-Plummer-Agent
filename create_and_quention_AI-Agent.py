@@ -11,7 +11,7 @@ load_dotenv()
 org = os.getenv("OWNER")
 repo = os.getenv("REPO")
 token = os.getenv("TOKEN")
-branch = "task/main/Add_post_run"
+branch = os.getenv("BRANCH") #"task/main/Add_post_run"
 workflow_file_path = ".github/workflows/actions-pipeline.yml"
 project_conn_str = os.getenv("PROJECT_CONNECTION_STRING")
 

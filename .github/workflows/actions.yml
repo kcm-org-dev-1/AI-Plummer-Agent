@@ -34,3 +34,13 @@ jobs:
           pip install -r requirements.txt
           python3 get_pipeline_logs.py
           ls -la
+
+      - name: AI AgentAction
+        env:
+          OWNER: kcm-org-dev-1
+          REPO: Book-My-Show
+          TOKEN: ${{ secrets.PAT }}
+          PROJECT_CONNECTION_STRING: ${{ secrets.PROJECT_CONNECTION_STRING }}
+          BRANTH: ${{ github.ref_name }}
+        run: |
+          python3 create_and_quention_AI-Agent.py
