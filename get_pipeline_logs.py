@@ -1,6 +1,9 @@
 import os
 import requests
 import zipfile
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_latest_logs():
     # Read environment variables

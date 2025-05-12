@@ -1,4 +1,4 @@
-name: End to End CI/CD for Book My Show Application
+name: Get Book-My-Show Pipeline logs
 
 on:
   push:
@@ -25,7 +25,36 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Azure Login
+        uses: Azure/login@v2.2.0
+        with:
+          # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          # creds: # optional
+          # ClientId of the Azure Service principal created.
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}  # optional
+          # TenantId of the Azure Service principal created.
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}  # optional
+          # Azure subscriptionId
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}  # optional
+          auth-type: SERVICE_PRINCIPAL  # optional, default is SERVICE_PRINCIPAL
+
       - name: Get Book-My-Show Pipeline logs
+        env:
+          OWNER: kcm-org-dev-1
+          REPO: Book-My-Show
+          TOKEN: ${{ secrets.PAT }}
         run: |
+          pip install -r requirements.txt
+          python3 get_pipeline_logs.py
           ls -la
 
+      - name: AI AgentAction
+        env:
+          OWNER: kcm-org-dev-1
+          REPO: Book-My-Show
+          TOKEN: ${{ secrets.PAT }}
+          PROJECT_CONNECTION_STRING: ${{ secrets.PROJECT_CONNECTION_STRING }}
+          BRANTH: ${{ github.ref_name }}
+        run: |
+          pip install -r requirements.txt
+          python3 create_and_quention_AI-Agent.py
